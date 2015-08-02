@@ -15,7 +15,8 @@ symbolAnDateObservable = Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AM
   .map (date) ->
     stockSymbol: stockSymbol
     date: date
-
+.zip Rx.Observable.interval(1000), (symbolAnDate, _) ->
+  symbolAnDate
 
 #     getPrice stockSymbol, 2014, 8, date
 #   .filter (dailyPriceSnapshot) ->
