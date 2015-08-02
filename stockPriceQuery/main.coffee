@@ -19,5 +19,7 @@ Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AMZN']
   .map (dailyPriceSnapshot) ->
     dailyGain = (dailyPriceSnapshot.Close - dailyPriceSnapshot.Open) / dailyPriceSnapshot.Open
     _.extend dailyGain: dailyGain, dailyPriceSnapshot
+.maxBy (dailyPriceSnapshot) ->
+  dailyPriceSnapshot.dailyGain
 .subscribe (item) ->
   console.log item
