@@ -9,17 +9,21 @@ getPrice = (stockSymbol, year, month, date) ->
   .map ([resp, body]) ->
     body
 
-Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AMZN']
+symbolAnDateObservable = Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AMZN']
 .flatMap (stockSymbol) ->
   Rx.Observable.range 1, 30
-  .flatMap (date) ->
-    getPrice stockSymbol, 2014, 8, date
-  .filter (dailyPriceSnapshot) ->
-    dailyPriceSnapshot isnt undefined
-  .map (dailyPriceSnapshot) ->
-    dailyGain = (dailyPriceSnapshot.Close - dailyPriceSnapshot.Open) / dailyPriceSnapshot.Open
-    _.extend dailyGain: dailyGain, dailyPriceSnapshot
-.maxBy (dailyPriceSnapshot) ->
-  dailyPriceSnapshot.dailyGain
-.subscribe (item) ->
+  .map (date) ->
+    stockSymbol: stockSymbol
+    date: date
+
+
+#     getPrice stockSymbol, 2014, 8, date
+#   .filter (dailyPriceSnapshot) ->
+#     dailyPriceSnapshot isnt undefined
+#   .map (dailyPriceSnapshot) ->
+#     dailyGain = (dailyPriceSnapshot.Close - dailyPriceSnapshot.Open) / dailyPriceSnapshot.Open
+#     _.extend dailyGain: dailyGain, dailyPriceSnapshot
+# .maxBy (dailyPriceSnapshot) ->
+#   dailyPriceSnapshot.dailyGain
+symbolAnDateObservable.subscribe (item) ->
   console.log item
