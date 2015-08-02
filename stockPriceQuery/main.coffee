@@ -8,6 +8,8 @@ getPrice = (stockSymbol, year, month, date) ->
   .map ([resp, body]) ->
     body
 
-getPrice 'MSFT', 2014, 8, 1
+Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AMZN']
+.flatMap (stockSymbol) ->
+  getPrice stockSymbol, 2014, 8, 1
 .subscribe (item) ->
   console.log item
