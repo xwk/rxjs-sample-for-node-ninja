@@ -10,6 +10,8 @@ getPrice = (stockSymbol, year, month, date) ->
 
 Rx.Observable.from ['MSFT', 'GOOG', 'YHOO', 'LNKD', 'AMZN']
 .flatMap (stockSymbol) ->
-  getPrice stockSymbol, 2014, 8, 1
+  Rx.Observable.range 1, 30
+  .flatMap (date) ->
+    getPrice stockSymbol, 2014, 8, date
 .subscribe (item) ->
   console.log item
