@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/2.4.1/rx.all.js"></script>
+    </head>
+    <body>
+        <p>Adapted from the example at https://gist.github.com/staltz/868e7e9bc2a7b8c1f754</p>
+        <button id="target" style="background-color:yellow">Triple click me</button>
+        <script>
+            var targetDiv = document.querySelector("#target");
+
+            var clickObservable = Rx.Observable.fromEvent(targetDiv, "mousedown");
+
+            var signalObservable = clickObservable.debounce(250);
+
+            clickObservable
+            .buffer(signalObservable)
+            .map(function(clicks){
+                return clicks.length;
+            })
+            .filter(function(clickLength){
+                return clickLength == 3;
+            })
+            .subscribe(function(){
+                targetDiv.style.backgroundColor = targetDiv.style.backgroundColor == "red" ? "yellow" : "red";
+            })
+
+        </script>
+    </body>
+</html>
