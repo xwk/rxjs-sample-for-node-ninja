@@ -1,3 +1,5 @@
+//implement request rate throttling
+
 var Rx = require('rx');
 var request = require('request');
 var _ = require('lodash');

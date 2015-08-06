@@ -1,3 +1,5 @@
+//implement request retry with binary-back-off strategy
+
 var Rx = require('rx');
 var request = require('request');
 var _ = require('lodash');
